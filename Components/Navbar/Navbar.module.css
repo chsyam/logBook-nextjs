@@ -1,0 +1,39 @@
+.navbar {
+    background-color: rgb(67, 67, 252);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    font-size: 20px;
+    color: white;
+    font-family: "Poppins";
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid white;
+}
+
+.navbar .menu {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.navbar .menu .menu_item {
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+.navbar .menu .menu_item:hover {
+    background-color: white;
+    color: black;
+}
+
+.title {
+    font-size: 34px;
+    cursor: pointer;
+}

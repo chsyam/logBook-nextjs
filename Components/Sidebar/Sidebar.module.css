@@ -1,0 +1,26 @@
+.sidebar {
+    font-family: "Poppins";
+    background-color: rgb(67, 67, 252);
+    width: 300px;
+    position: absolute;
+    top: 70px;
+    bottom: 0;
+    left: 0;
+    color: white;
+    font-size: 20px;
+    border-top: 1px solid white;
+}
+
+.sidebar .item {
+    margin: 20px 2px;
+    cursor: pointer;
+    padding: 15px 15px 15px 20px;
+    border: 1px solid rgb(67, 67, 252);
+    background-color: rgb(110, 110, 254);
+    border-radius: 30px;
+}
+
+.sidebar .item:hover {
+    background-color: white;
+    color: black;
+}
