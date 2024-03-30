@@ -1,20 +1,33 @@
-.formBody {
+.RegistrationForm1 {
     position: absolute;
     left: 300px;
     top: 70px;
-    width: calc(100% - 340px);
-    display: flex;
-    justify-content: center;
-    margin: 20px;
     font-family: 'Poppins';
+    transition: 0.2s all ease-in;
+    background-color: #ddd;
+    border-radius: 10px;
+    height: calc(100% - 70px);
+    width: calc(100% - 300px);
+}
+
+.RegistrationForm2 {
+    border-radius: 10px;
+    position: absolute;
+    left: 100px;
+    top: 70px;
+    font-family: 'Poppins';
+    background-color: #ddd;
+    transition: 0.2s all ease-in;
+    height: calc(100% - 70px);
+    width: calc(100% - 100px);
 }
 
 .form {
     gap: 15px;
-    border: 1px solid gray;
     padding: 20px;
-    border-radius: 20px;
-    box-shadow: 2px 2px 10px 2px gray;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .form label {

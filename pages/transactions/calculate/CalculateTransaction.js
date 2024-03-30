@@ -40,8 +40,8 @@ export default function CalculateTransaction() {
     }
 
     return (
-        <div className={styles.section}>
-            <span>Whose Amount should be calculate? <h1>{owner}</h1></span>
+        <div className={styles.calculateSection}>
+            <span>Whose Amount should be calculate? <div className={styles.name}>{owner}</div></span>
             <select value={owner} onChange={handleChange}>
                 {/* {props.users.map((user, index) => (
                     <option value={user.userName} key={index}>

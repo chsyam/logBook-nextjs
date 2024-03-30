@@ -1,10 +1,10 @@
 import Navbar from "@/Components/Navbar";
 import Sidebar from "@/Components/Sidebar";
-import AddTransaction from "./addTransaction";
-import styles from "./../../../styles/index.module.css";
+import styles from "@/styles/index.module.css"
 import { useState } from "react";
+import Login from "./Login";
 
-export default function AdditionTransaction() {
+export default function LoginImpl() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     return (
@@ -12,8 +12,8 @@ export default function AdditionTransaction() {
             <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <Navbar />
             <div className={isSidebarOpen ? styles.home1 : styles.home2}>
-                <AddTransaction />
+                <Login />
             </div>
         </div>
-    );
+    )
 }

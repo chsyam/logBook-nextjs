@@ -1,0 +1,19 @@
+.home1 {
+    position: absolute;
+    top: 70px;
+    left: 308px;
+    height: calc(100% - 70px);
+    width: calc(100% - 308px);
+    background-color: #ddd;
+    transition: all 0.3s ease;
+}
+
+.home2 {
+    position: absolute;
+    top: 70px;
+    left: 98px;
+    height: calc(100% - 70px);
+    width: calc(100% - 98px);
+    background-color: #ddd;
+    transition: all 0.3s ease;
+}

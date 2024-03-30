@@ -1,0 +1,53 @@
+.loginForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins';
+    height: calc(100% - 70px);
+}
+
+.form label {
+    margin-right: 10px;
+    color: gray;
+    font-family: 24px;
+}
+
+.form input {
+    padding: 10px;
+    border: 2px solid gray;
+    outline: none;
+    border-radius: 7px;
+    width: 270px;
+    font-family: 'Poppins';
+    font-size: 18px;
+}
+
+.form input[type="submit"] {
+    background-color: green;
+    color: white;
+    font-size: 20px;
+    border: 2px solid green;
+    cursor: pointer;
+    padding: 5px;
+    width: 120px;
+}
+
+.form table tr {
+    height: 70px;
+}
+
+.form table tr:nth-child(4),
+.form table tr:nth-child(5) {
+    height: 45px;
+}
+
+.form table tr a {
+    text-decoration: none;
+    color: gray;
+    transition: all 0.2s ease-in-out;
+}
+
+.form table tr a:hover {
+    color: blue;
+    text-decoration: underline;
+}

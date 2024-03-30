@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styles from "./../Transactions.module.css";
 
-export default function AddTransaction(props) {
+export default function AddTransaction() {
     const [amount, setAmount] = useState(0);
     const [description, setDescription] = useState("");
     const [checked, setChecked] = useState([]);
     const [owner, setOwner] = useState("syamkumar ch");
+
     const handleCheck = (event) => {
         var updatedList = [...checked];
         if (event.target.checked) {
@@ -56,7 +57,7 @@ export default function AddTransaction(props) {
     }
 
     return (
-        <div>
+        <div className={styles.addTransactionForm}>
             <div className={styles.h1}>Add Transaction</div>
             <form className={styles.form} onSubmit={(event) => handleSubmit(event)}>
                 <div className={styles.form_div}>
