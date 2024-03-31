@@ -26,7 +26,7 @@ export default function TransactionHistory() {
 
     return (
         <div className={""}>
-            <siv className={styles.h1}>History</siv>
+            <div className={styles.h1}>History</div>
             <div className={styles.history}>
                 <table className={styles.table}>
                     <thead>

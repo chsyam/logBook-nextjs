@@ -27,7 +27,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 <div className={styles.menu}>
                     <ul className={styles.menuLinks}>
                         <li className={styles.navLink}>
-                            <a onClick={() => router.push("/")}>
+                            <a onClick={() => router.push("/dashboard")}>
                                 <i className={styles.icon}>
                                     <RxDashboard />
                                 </i>

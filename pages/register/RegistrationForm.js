@@ -1,25 +1,12 @@
 import { useEffect, useState } from "react";
 import styles from "./Registration.module.css"
+import axios from "axios";
 
 export default function RegistrationForm({ isSidebarOpen }) {
     const [users, setUsers] = useState([])
+    const [message, setMessage] = useState("");
+
     useEffect(() => {
-        const LoginTest = async () => {
-            try {
-                const response = await axios.post("http://localhost:8080/login", {
-                    "username": "nagasaib",
-                    "password": "123456"
-                });
-                if (response.status === 200) {
-                    const token = response.data.token;
-                    console.log(token);
-                    Cookies.set('token', token, { expires: 24 });
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        // LoginTest();
         const fetchData = async () => {
             try {
                 const token = Cookies.get('token');
@@ -39,11 +26,12 @@ export default function RegistrationForm({ isSidebarOpen }) {
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
-        userName: "",
+        username: "",
         email: "",
         mobileNumber: "",
         password: "",
         confirmPassword: "",
+        role: "USER"
     })
 
     const handleOnChange = (e) => {
@@ -51,7 +39,7 @@ export default function RegistrationForm({ isSidebarOpen }) {
     }
 
     const validateForm = () => {
-        const matchedUserNames = users?.filter(user => user.userName === formData.userName);
+        const matchedUserNames = users?.filter(user => user.username === formData.username);
         return !(matchedUserNames.length > 0);
     }
 
@@ -59,16 +47,9 @@ export default function RegistrationForm({ isSidebarOpen }) {
         e.preventDefault();
         const isValid = validateForm();
         if (isValid) {
-            const token = Cookies.get('token');
-            const response = await axios.post("http://localhost:8080/users/save",
-                formData,
-                {
-                    headers: {
-                        "Authorization": `Bearer ${token}`
-                    },
-                });
-            if (response.status === 200) {
-                console.log("User registered successfully", formData);
+            const response = await axios.post("http://localhost:8080/register", formData);
+            if (response.status === 201) {
+                window.location.href = "/login";
             } else {
                 console.log("Error registering user", formData);
                 console.log(response);
@@ -82,6 +63,7 @@ export default function RegistrationForm({ isSidebarOpen }) {
 
     return (
         <div className={isSidebarOpen ? styles.RegistrationForm1 : styles.RegistrationForm2}>
+            <div>{message}</div>
             <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
                 <div>
                     <table>
@@ -106,7 +88,7 @@ export default function RegistrationForm({ isSidebarOpen }) {
                             <tr>
                                 <td><label>Username:</label></td>
                                 <td>
-                                    <input type="text" name="userName" value={formData.userName}
+                                    <input type="text" name="username" value={formData.username}
                                         onChange={e => handleOnChange(e)}
                                         placeholder="Enter your username" required
                                     />
@@ -153,7 +135,7 @@ export default function RegistrationForm({ isSidebarOpen }) {
                             </tr>
                         </tbody>
                     </table>
-                </div>  
+                </div>
             </form>
         </div>
     );

@@ -51,3 +51,13 @@
     color: blue;
     text-decoration: underline;
 }
+
+.error {
+    text-align: center;
+    background-color: white;
+    margin: 20px 0;
+    color: red;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+}

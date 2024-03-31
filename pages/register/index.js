@@ -2,10 +2,17 @@ import styles from "./Registration.module.css"
 import Sidebar from "@/Components/Sidebar";
 import Navbar from "@/Components/Navbar";
 import RegistrationForm from "./RegistrationForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 export default function Home() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+    useEffect(() => {
+        if (Cookies.get("username")) {
+            window.location.href = "/dashboard";
+        }
+    })
 
     return (
         <div>

@@ -45,3 +45,53 @@
 .menuLinks li:hover {
     background-color: #695cfe;
 }
+
+.profileMenu {
+    position: absolute;
+    background-color: fff;
+    z-index: 1;
+    right: 10px;
+    top: 90px;
+    color: #242526;
+    width: max-content;
+    border-radius: 10px;
+    box-shadow: 1px 1px 8px 4px gray;
+    transition: 0.5s all in ease-in-out;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.username {
+    margin: 5px 0 20px 0;
+    padding: 10px 0;
+    border-bottom: 2px solid #FFF;
+}
+
+.profileMenu ul {
+    padding: 0;
+}
+
+.profileMenu ul li {
+    border-radius: 0;
+    margin: 10px 5px;
+    padding: 10px;
+}
+
+.profileMenu ul li:hover {
+    background-color: #fff;
+    transition: 0.2s all ease-in-out;
+    border-radius: 10px;
+}
+
+.icon {
+    margin: 5px 5px 0 0;
+    font-size: 20px;
+}
+
+.optionInline {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: center;
+}
