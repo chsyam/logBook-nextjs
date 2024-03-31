@@ -1,26 +1,20 @@
 import { useEffect, useState } from "react";
 import styles from "./../Transactions.module.css"
+import axios from "axios";
 
 export default function TransactionHistory() {
     const [data, setData] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const token = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJuYWdhc2FpYiIsImlhdCI6MTcxMTU2MTQwNiwiZXhwIjoxNzExNjQ3ODA2fQ.xzz6RlWFVo7g8NYXshmf1kdybSnrtVCeZ4723QTpJBkZIwx1FOMwk2tBXvMK4y97";//Cookies.get('token');
-                const { data: response } = await axios.get('http://localhost:8080/transactions/get/all',
-                    {
-                        headers: {
-                            "Authorization": `Bearer ${token}`
-                        },
-                    }
-                );
+                const { data: response } = await axios.get('http://localhost:8080/transactions/get/all');
                 setData(response);
                 console.log(response);
             } catch (error) {
                 console.error(error.message);
             }
         }
-        // fetchData();
+        fetchData();
     }, []);
 
 
@@ -36,7 +30,6 @@ export default function TransactionHistory() {
                             <th>Amount</th>
                             <th>Transaction Owner</th>
                             <th>Date</th>
-                            {/* <th>Time</th> */}
                             <th>Members Included</th>
                         </tr>
                     </thead>

@@ -140,7 +140,6 @@
 }
 
 .table {
-    width: 80%;
     text-align: left;
     border: 1px solid blue;
     background-color: rgb(204, 239, 239);
@@ -162,9 +161,9 @@
 
 .table td,
 .table th {
-    height: 50px;
+    height: 40px;
     border: 1px solid black;
-    padding: 5px;
+    padding: 5px 20px;
     text-justify: auto;
 }
 

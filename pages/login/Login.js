@@ -26,7 +26,7 @@ export default function Login() {
                 window.location.href = "/dashboard";
             }
         } catch (error) {
-            if (error.response.status === 401 || error.response.status === 500) {
+            if (error?.response?.status === 401 || error?.response?.status === 500) {
                 setMessage("Invalid username or password...!")
             } else {
                 setMessage("Something went wrong...! Please try again later");

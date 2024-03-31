@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./../Transactions.module.css";
+import { getAllUsers } from "@/pages/api/users/getAllUsers";
+import axios from "axios";
+import { useRouter } from 'next/router';
+import Cookies from "js-cookie";
 
 export default function AddTransaction() {
     const [amount, setAmount] = useState(0);
     const [description, setDescription] = useState("");
     const [checked, setChecked] = useState([]);
-    const [owner, setOwner] = useState("syamkumar ch");
+    const ownerName = Cookies.get("username")
+    const [owner, setOwner] = useState(ownerName);
+    const [users, setUsers] = useState([]);
+    const [show, setShow] = useState(false);
+    const router = useRouter();
 
     const handleCheck = (event) => {
         var updatedList = [...checked];
@@ -25,35 +33,40 @@ export default function AddTransaction() {
 
     var isChecked = (item) =>
         checked.includes(item) ? "checked-item" : "not-checked-item";
+    useEffect(() => {
+        const getAllUsersList = async () => {
+            const res = await getAllUsers();
+            setUsers(res);
+            console.log(res);
+        }
+        getAllUsersList();
+    }, [])
 
     const handleSubmit = async (event) => {
+        setShow(true);
         event.preventDefault();
         if (amount !== 0 && checkedItems.length !== 0 && description.length > 2) {
             try {
-                const token = Cookies.get('token');
                 const users_included = [];
                 checkedItems.split(",").forEach(item => {
                     users_included.push(item.trim());
                 })
-
                 console.log(users_included);
                 const response = await axios.post('http://localhost:8080/transactions/save',
                     {
                         "amount": amount, "description": description, "users_included": users_included, "owner": owner
                     },
-                    {
-                        headers: {
-                            "Authorization": `Bearer ${token}`
-                        },
-                    }
                 );
-                console.log(response);
+                if (response.status === 201) {
+                    setShow(true);
+                    router.push("/transactions/history");
+                } else {
+                    setShow(false);
+                }
             } catch (error) {
                 console.error(error.message);
             }
         }
-        props.setHistoryButton(true);
-        props.setAddButton(false);
     }
 
     return (
@@ -73,11 +86,11 @@ export default function AddTransaction() {
                                 <td>Owner:</td>
                                 <td className={styles.selection}>
                                     <select value={owner} onChange={(e) => { setOwner(e.target.value) }}>
-                                        {/* {props.users.map((user, index) => (
-                                            <option value={user.userName} key={index}>
-                                                {user.userName}
+                                        {users.map((user, index) => (
+                                            <option value={user.username} key={index}>
+                                                {user.username}
                                             </option>
-                                        ))} */}
+                                        ))}
                                     </select>
                                 </td>
                             </tr>
@@ -90,12 +103,12 @@ export default function AddTransaction() {
                             <tr className={styles.checkList}>
                                 <td>Members:</td>
                                 <td className={`${styles.list} ${styles.container}`}>
-                                    {/* {props.users.map((item, index) => (
-                                        <div className={styles."}key={index}>
-                                            <input className={styles.checkbox} id={index} value={item.userName} type="checkbox" onChange={handleCheck} />
-                                            <label htmlFor={index} className={isChecked(item.userName)}>{item.userName}</label>
+                                    {users.map((user, index) => (
+                                        <div key={index}>
+                                            <input className={styles.checkbox} id={index} value={user.username} type="checkbox" onChange={handleCheck} />
+                                            <label htmlFor={index} className={isChecked(user.username)}>{user.username}</label>
                                         </div>
-                                    ))} */}
+                                    ))}
                                 </td>
                             </tr>
                             <tr className={styles.members}>
@@ -107,7 +120,7 @@ export default function AddTransaction() {
                     </table>
                     <div className={styles.buttons}>
                         <input type="reset" className={styles.cancel} value="Cancel" />
-                        <input type="submit" className={styles.submit} value="Submit" />
+                        <input type="submit" className={styles.submit} value={show ? "Submitting" : "Submit"} style={{ cursor: !show ? "auto" : "not-allowed" }} />
                     </div>
                 </div>
             </form >

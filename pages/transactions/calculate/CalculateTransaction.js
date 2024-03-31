@@ -1,38 +1,46 @@
 import { useEffect, useState } from "react";
 import styles from "./../Transactions.module.css"
+import { getAllUsers } from "@/pages/api/users/getAllUsers";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 export default function CalculateTransaction() {
     const [data, setData] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [owner, setOwner] = useState("")
+
+
     useEffect(() => {
+        const username = Cookies.get("username")
+        setOwner(username)
+        const fetchUsersList = async () => {
+            const resp = await getAllUsers();
+            setUsers(resp);
+        }
+        fetchUsersList();
+
         const fetchData = async () => {
             try {
-                const token = Cookies.get('token');
-                const { data: response } = await axios.get('http://localhost:8080/transactions/get/all',
-                    {
-                        headers: {
-                            "Authorization": `Bearer ${token}`
-                        },
-                    });
+                const { data: response } = await axios.get('http://localhost:8080/transactions/get/all');
                 setData(response);
             } catch (error) {
                 console.error(error.message);
             }
         }
-        // fetchData();
+        fetchData();
     }, []);
 
-    const [owner, setOwner] = useState("syamkumar ch")
 
     const handleChange = (e) => {
         setOwner(e.target.value);
     }
 
-    const CalculateTotal = (userName, ownerName) => {
+    const CalculateTotal = (username, ownerName) => {
         let total = 0;
         if (data.length === 0)
             return "Nothing"
         data.forEach((transaction) => {
-            if (transaction.owner === ownerName && transaction.users_included.includes(userName)) {
+            if (transaction.owner === ownerName && transaction.users_included.includes(username)) {
                 total += transaction.amount / transaction.users_included.length;
             }
         });
@@ -41,33 +49,26 @@ export default function CalculateTransaction() {
 
     return (
         <div className={styles.calculateSection}>
-            <span>Whose Amount should be calculate? <div className={styles.name}>{owner}</div></span>
-            <select value={owner} onChange={handleChange}>
-                {/* {props.users.map((user, index) => (
-                    <option value={user.userName} key={index}>
-                        {user.userName}
-                    </option>
-                ))} */}
-            </select>
+            <span>Calculating for <div>{owner}</div></span>
             <div className={styles.calculate}>
                 <table className={styles.table}>
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Total Amount</th>
+                            <th>Payable Amount</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {
-                            props.users.map((user, index) => (
-                                user.userName !== owner && (
+                        {
+                            users.map((user, index) => (
+                                user.username !== owner && (
                                     <tr key={index}>
-                                        <td>{user.userName}</td>
-                                        <td>{"₹ " + CalculateTotal(user.userName, owner)}</td>
+                                        <td>{user.username}</td>
+                                        <td>{"₹ " + CalculateTotal(user.username, owner)}</td>
                                     </tr>
                                 )
                             ))
-                        } */}
+                        }
                     </tbody>
                 </table>
             </div>
