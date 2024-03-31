@@ -1,7 +1,7 @@
 export async function addTransactionHandle() {
     try {
         const users_included = [];
-        checkedItems.split(",").forEach(item => {
+        checkedItems.split(",")?.forEach(item => {
             users_included.push(item.trim());
         })
         console.log(users_included);

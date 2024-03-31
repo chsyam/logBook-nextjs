@@ -48,7 +48,7 @@ export default function AddTransaction() {
         if (amount !== 0 && checkedItems.length !== 0 && description.length > 2) {
             try {
                 const users_included = [];
-                checkedItems.split(",").forEach(item => {
+                checkedItems.split(",")?.forEach(item => {
                     users_included.push(item.trim());
                 })
                 console.log(users_included);
@@ -86,7 +86,7 @@ export default function AddTransaction() {
                                 <td>Owner:</td>
                                 <td className={styles.selection}>
                                     <select value={owner} onChange={(e) => { setOwner(e.target.value) }}>
-                                        {users.map((user, index) => (
+                                        {users?.map((user, index) => (
                                             <option value={user.username} key={index}>
                                                 {user.username}
                                             </option>
@@ -103,7 +103,7 @@ export default function AddTransaction() {
                             <tr className={styles.checkList}>
                                 <td>Members:</td>
                                 <td className={`${styles.list} ${styles.container}`}>
-                                    {users.map((user, index) => (
+                                    {users?.map((user, index) => (
                                         <div key={index}>
                                             <input className={styles.checkbox} id={index} value={user.username} type="checkbox" onChange={handleCheck} />
                                             <label htmlFor={index} className={isChecked(user.username)}>{user.username}</label>

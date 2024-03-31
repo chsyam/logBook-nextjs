@@ -39,7 +39,7 @@ export default function CalculateTransaction() {
         let total = 0;
         if (data.length === 0)
             return "Nothing"
-        data.forEach((transaction) => {
+        data?.forEach((transaction) => {
             if (transaction.owner === ownerName && transaction.users_included.includes(username)) {
                 total += transaction.amount / transaction.users_included.length;
             }
@@ -60,7 +60,7 @@ export default function CalculateTransaction() {
                     </thead>
                     <tbody>
                         {
-                            users.map((user, index) => (
+                            users?.map((user, index) => (
                                 user.username !== owner && (
                                     <tr key={index}>
                                         <td>{user.username}</td>

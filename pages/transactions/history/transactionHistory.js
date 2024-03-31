@@ -34,7 +34,7 @@ export default function TransactionHistory() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((item, index) => (
+                        {data?.map((item, index) => (
                             <tr key={index}>
                                 <td>{item.id}</td>
                                 <td>{item.description}</td>
