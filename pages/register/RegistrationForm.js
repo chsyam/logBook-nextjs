@@ -9,18 +9,13 @@ export default function RegistrationForm({ isSidebarOpen }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const token = Cookies.get('token');
-                const { data: response } = await axios.get('http://localhost:8080/users/get/all', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                const { data: response } = await axios.get('https://expenses-028t.onrender.com/users/get/all');
                 setUsers(response);
             } catch (error) {
                 console.error(error.message);
             }
         }
-        // fetchData();
+        fetchData();
     }, []);
 
     const [formData, setFormData] = useState({
@@ -47,7 +42,7 @@ export default function RegistrationForm({ isSidebarOpen }) {
         e.preventDefault();
         const isValid = validateForm();
         if (isValid) {
-            const response = await axios.post("http://localhost:8080/register", formData);
+            const response = await axios.post("https://expenses-028t.onrender.com/register", formData);
             if (response.status === 201) {
                 window.location.href = "/login";
             } else {

@@ -7,7 +7,7 @@ export default function TransactionHistory() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data: response } = await axios.get('http://localhost:8080/transactions/get/all');
+                const { data: response } = await axios.get('https://expenses-028t.onrender.com/transactions/get/all');
                 setData(response);
                 console.log(response);
             } catch (error) {

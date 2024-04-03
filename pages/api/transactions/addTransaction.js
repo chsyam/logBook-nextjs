@@ -5,7 +5,7 @@ export async function addTransactionHandle() {
             users_included.push(item.trim());
         })
         console.log(users_included);
-        const response = await axios.post('http://localhost:8080/transactions/save',
+        const response = await axios.post('https://expenses-028t.onrender.com/transactions/save',
             {
                 "amount": amount, "description": description, "users_included": users_included, "owner": owner
             },

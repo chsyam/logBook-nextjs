@@ -21,7 +21,7 @@ export default function CalculateTransaction() {
 
         const fetchData = async () => {
             try {
-                const { data: response } = await axios.get('http://localhost:8080/transactions/get/all');
+                const { data: response } = await axios.get('https://expenses-028t.onrender.com/transactions/get/all');
                 setData(response);
             } catch (error) {
                 console.error(error.message);

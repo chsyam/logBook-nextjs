@@ -20,7 +20,7 @@ export default function Login() {
     const handleonSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/login", formData);
+            const response = await axios.post("https://expenses-028t.onrender.com/login", formData);
             if (response.status === 200) {
                 Cookies.set("username", response.data.username, { expires: 24 })
                 window.location.href = "/dashboard";
