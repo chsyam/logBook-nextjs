@@ -2,28 +2,16 @@ import { useEffect, useState } from "react";
 import styles from "./Registration.module.css"
 import axios from "axios";
 
-export default function RegistrationForm({ isSidebarOpen }) {
-    const [users, setUsers] = useState([])
+export default function RegistrationForm({ isSidebarOpen, usersList }) {
     const [message, setMessage] = useState("");
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data: response } = await axios.get('https://expenses-028t.onrender.com/users/get/all');
-                setUsers(response);
-            } catch (error) {
-                console.error(error.message);
-            }
-        }
-        fetchData();
-    }, []);
+    const [status, setStatus] = useState(false);
 
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
         username: "",
         email: "",
-        mobileNumber: "",
+        phoneNumber: "",
         password: "",
         confirmPassword: "",
         role: "USER"
@@ -34,15 +22,47 @@ export default function RegistrationForm({ isSidebarOpen }) {
     }
 
     const validateForm = () => {
-        const matchedUserNames = users?.filter(user => user.username === formData.username);
-        return !(matchedUserNames.length > 0);
+        const matchedUserNames = usersList?.filter(user => user.username.toLowerCase() === formData.username.toLowerCase());
+        const matchedEmails = usersList?.filter(user => user.email.toLowerCase() === formData.email.toLowerCase());
+        const matchedPhoneNumbers = usersList?.filter(user => user.phoneNumber === formData.phoneNumber);
+        if (matchedUserNames.length > 0) {
+            alert("user with same username already exists");
+            return false;
+        }
+        else if (matchedEmails.length > 0) {
+            alert("user with same email already exists");
+            return false;
+        }
+        else if (matchedPhoneNumbers.length > 0) {
+            alert("user with same phone number already exists");
+            return false;
+        }
+        else if (formData.password !== formData.confirmPassword) {
+            alert("Passwords do not match");
+            return false;
+        }
+        else if (formData.password.length < 8) {
+            alert("Password must be at least 8 characters long");
+            return false;
+        }
+        else if (formData.firstName.length < 3) {
+            alert("First name must be at least 3 characters long");
+            return false;
+        }
+        else if (formData.lastName.length < 3) {
+            alert("Last name must be at least 3 characters long");
+            return false;
+        }
+        return true;
     }
 
     const handleSubmit = async (e) => {
+        setStatus(true);
         e.preventDefault();
         const isValid = validateForm();
         if (isValid) {
-            const response = await axios.post("https://expenses-028t.onrender.com/register", formData);
+            console.log(formData);
+            const response = await axios.post("http://localhost:8080/register", formData);
             if (response.status === 201) {
                 window.location.href = "/login";
             } else {
@@ -50,10 +70,7 @@ export default function RegistrationForm({ isSidebarOpen }) {
                 console.log(response);
             }
         }
-        else {
-            alert("User with same username already exists");
-            console.log("Form data is invalid", formData);
-        }
+        setStatus(false);
     }
 
     return (
@@ -101,7 +118,8 @@ export default function RegistrationForm({ isSidebarOpen }) {
                             <tr>
                                 <td><label>Mobile Number:</label></td>
                                 <td>
-                                    <input type="number" name="mobileNumber" value={formData.mobileNumber} onChange={e => handleOnChange(e)}
+                                    <input type="number" name="phoneNumber" value={formData.phoneNumber}
+                                        onChange={e => handleOnChange(e)}
                                         placeholder="Enter your Mobile number" required
                                     />
                                 </td>
@@ -125,7 +143,11 @@ export default function RegistrationForm({ isSidebarOpen }) {
                             </tr>
                             <tr>
                                 <td colSpan="2">
-                                    <input type="submit" value="Register" />
+                                    <input
+                                        type="submit"
+                                        value={status ? "Registering..." : "Register"}
+                                        style={{ cursor: status ? "not-allowed" : "pointer" }}
+                                    />
                                 </td>
                             </tr>
                         </tbody>

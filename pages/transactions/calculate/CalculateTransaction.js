@@ -21,7 +21,7 @@ export default function CalculateTransaction() {
 
         const fetchData = async () => {
             try {
-                const { data: response } = await axios.get('https://expenses-028t.onrender.com/transactions/get/all');
+                const { data: response } = await axios.get('http://localhost:8080/transactions/get/all');
                 setData(response);
             } catch (error) {
                 console.error(error.message);
@@ -49,7 +49,6 @@ export default function CalculateTransaction() {
 
     return (
         <div className={styles.calculateSection}>
-            <span>Calculating for <div>{owner}</div></span>
             <div className={styles.calculate}>
                 <table className={styles.table}>
                     <thead>
@@ -61,12 +60,12 @@ export default function CalculateTransaction() {
                     <tbody>
                         {
                             users?.map((user, index) => (
-                                user.username !== owner && (
-                                    <tr key={index}>
-                                        <td>{user.username}</td>
-                                        <td>{"₹ " + CalculateTotal(user.username, owner)}</td>
-                                    </tr>
-                                )
+                                // user.username !== owner && (
+                                <tr key={index}>
+                                    <td>{user.username}</td>
+                                    <td>{"₹ " + CalculateTotal(user.username, owner)}</td>
+                                </tr>
+                                // )
                             ))
                         }
                     </tbody>

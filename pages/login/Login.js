@@ -6,21 +6,23 @@ import Cookies from "js-cookie";
 
 export default function Login() {
     const [message, setMessage] = useState("");
-    const [formData, setFormData] = useState(
-        {
-            username: "",
-            password: ""
-        }
-    );
+    const [status, setStatus] = useState(false);
+
+    const [formData, setFormData] = useState({
+        username: "",
+        password: ""
+    });
 
     const handleOnChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
     const handleonSubmit = async (e) => {
+        setStatus(true);
         e.preventDefault();
         try {
-            const response = await axios.post("https://expenses-028t.onrender.com/login", formData);
+            console.log(formData)
+            const response = await axios.post("http://localhost:8080/login", formData);
             if (response.status === 200) {
                 Cookies.set("username", response.data.username, { expires: 24 })
                 window.location.href = "/dashboard";
@@ -32,6 +34,7 @@ export default function Login() {
                 setMessage("Something went wrong...! Please try again later");
             }
         }
+        setStatus(false);
     }
 
     return (
@@ -58,7 +61,11 @@ export default function Login() {
                         </tr>
                         <tr>
                             <td colSpan="2" style={{ textAlign: "center" }}>
-                                <input type="submit" value="Login" />
+                                <input
+                                    style={{ cursor: status ? "not-allowed" : "pointer" }}
+                                    type="submit"
+                                    value={status ? "..." : "Login"}
+                                />
                             </td>
                         </tr>
                         <tr>
