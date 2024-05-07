@@ -28,7 +28,7 @@ export default function Home({ usersList }) {
 
 export async function getServerSideProps(context) {
     try {
-        const response_usersList = await axios.get('http://localhost:8080/users/get/all');
+        const response_usersList = await axios.get('https://expense-management-i3ud.onrender.com/users/get/all');
         const usersList = response_usersList.data;
 
         console.log("usersList", usersList);

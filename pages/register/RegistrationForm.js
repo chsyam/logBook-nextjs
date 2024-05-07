@@ -62,7 +62,7 @@ export default function RegistrationForm({ isSidebarOpen, usersList }) {
         const isValid = validateForm();
         if (isValid) {
             console.log(formData);
-            const response = await axios.post("http://localhost:8080/register", formData);
+            const response = await axios.post("https://expense-management-i3ud.onrender.com/register", formData);
             if (response.status === 201) {
                 window.location.href = "/login";
             } else {
