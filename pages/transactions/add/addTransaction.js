@@ -52,7 +52,7 @@ export default function AddTransaction() {
                     users_included.push(item.trim());
                 })
                 console.log(users_included);
-                const response = await axios.post('https://expense-management-i3ud.onrender.com/transactions/save',
+                const response = await axios.post('https://trackhub-app.onrender.com/transactions/save',
                     {
                         "amount": amount,
                         "description": description,
